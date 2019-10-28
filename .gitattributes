@@ -1,0 +1,1 @@
+/libs/ios/AWSDK.framework/Versions/A/AWSDK filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,56 @@
+{
+  "_from": "airwatch-sdk-plugin",
+  "_id": "airwatch-sdk-plugin@1.5.0",
+  "_inBundle": false,
+  "_integrity": "sha512-d0A6Uwf0HQ5BRmuLj+MoDYxjiVB2f5e9GsoXqtB1xX09LMAnKDcDG2hq8WI750bSPvVOThrU5isTuHRD6QTOyA==",
+  "_location": "/airwatch-sdk-plugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "airwatch-sdk-plugin",
+    "name": "airwatch-sdk-plugin",
+    "escapedName": "airwatch-sdk-plugin",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/airwatch-sdk-plugin/-/airwatch-sdk-plugin-1.5.0.tgz",
+  "_shasum": "03765d4a0b5043a4750929cd4596c7f806106d02",
+  "_spec": "airwatch-sdk-plugin",
+  "_where": "/Users/joaorodrigues/Documents/plugin",
+  "author": {
+    "name": "VMWare Airwatch"
+  },
+  "bugs": {
+    "email": "DL.ReleaseManagement@air-watch.com"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "com.airwatch.awsdkplugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Integrate AirWatch SDK capabilities into your Cordova project",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.4.0"
+    }
+  ],
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "VMWare license",
+  "name": "airwatch-sdk-plugin",
+  "version": "1.5.0"
+}

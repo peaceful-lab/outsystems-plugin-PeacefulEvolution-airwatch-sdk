@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin
+    xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="airwatch-sdk-plugin"
+    version="1.5.0">
+
+    <name>airwatch-sdk-plugin</name>
+
+    <engines>
+        <engine name="cordova" version=">=3.4.0"/>
+    </engines>
+
+    <!-- JS config -->
+
+    <asset src="www/airwatch.js" target="airwatch.js"/>
+
+    <js-module src="www/airwatch.js" name="AirwatchSDK">
+        <clobbers target="plugins.airwatch" />
+    </js-module>
+
+    <!-- Android config -->
+    <platform name="android">
+
+        <!--<hook type="after_plugin_add" src="hooks/copy-intentservice.js" />-->
+
+        <config-file target="res/xml/config.xml" parent="/*">
+                <feature name="AirwatchSDK">
+                    <param name="android-package" value="com.airwatch.cordova.sdkplugin.AirwatchSDKPlugin"/>
+                    <param name="onload" value="true"/>
+                </feature>
+        </config-file>
+
+        <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+                <application android:name="com.airwatch.cordova.sdkplugin.AWCordovaApplication"/>
+        </edit-config>
+
+        <edit-config file="AndroidManifest.xml" target="/manifest/application/activity" mode="merge">
+                <activity android:name="com.airwatch.gateway.ui.GatewaySplashActivity"/>
+        </edit-config>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+            <uses-permission android:name="com.airwatch.email.permission.ACCESS_PROVIDER"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+        </config-file>
+
+         <config-file target="AndroidManifest.xml" parent="application">
+            <meta-data android:name="com.airwatch.certpinning.refresh.interval" android:value="1"/>
+            <meta-data android:name="com.airwatch.certpinning.refresh.interval.unit" android:value="DAYS"/>           
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="application">
+            <activity android:name="com.airwatch.cordova.sdkplugin.AWCordovaActivity"
+                      android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+                      android:theme="@style/Theme.AppCompat">
+            </activity>
+            
+            <!--<receiver android:name="com.airwatch.sdk.AirWatchSDKBroadcastReceiver"
+                android:permission="com.airwatch.sdk.BROADCAST">
+                <intent-filter>
+                    <action android:name="com.airwatch.sdk.airwatchsdk.BROADCAST" />
+                </intent-filter>
+            </receiver>-->
+            
+        </config-file>
+       
+        <source-file src="src/android/AirwatchSDKPlugin.java" target-dir="src/com/airwatch/cordova/sdkplugin"/>
+        <source-file src="src/android/AirwatchBridge.java" target-dir="src/com/airwatch/cordova/sdkplugin"/>
+		<source-file src="src/android/AWCordovaApplication.java" target-dir="src/com/airwatch/cordova/sdkplugin"/>
+        <source-file src="src/android/AWCordovaActivity.java" target-dir="src/com/airwatch/cordova/sdkplugin"/>
+        <source-file src="src/android/commands/DLPFileOpenCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/AllowCopyPasteCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/AllowOfflineCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/CustomSettingsCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/GroupIdCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/ServerNameCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/UsernameCommand.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+        <source-file src="src/android/commands/Command.java" target-dir="src/com/airwatch/cordova/sdkplugin/commands"/>
+
+		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+
+        <lib-file src="libs/android/AWNetworkLibrary-19.7.aar" target-dir="libs"/>
+        <lib-file  src="libs/android/AWFramework-19.7.aar" target-dir="libs"/>
+        <lib-file  src="libs/android/AirWatchSDK-19.7.aar" target-dir="libs"/>
+        <lib-file  src="libs/android/CredentialsExt-101.1.0.aar" target-dir="libs" />
+        <lib-file  src="libs/android/CredentialsExtLegacy-100.0.1.aar" target-dir="libs" />
+        <lib-file  src="libs/android/SCEPClient-1.0.7.aar" target-dir="libs" />
+        <lib-file  src="libs/android/AWComplianceLibrary-2.0.1.aar" target-dir="libs" />
+        <lib-file  src="libs/android/tunnel-sdk-19.7.aar" target-dir="libs" />
+
+
+        <lib-file src="libs/android/awrepackagedrhinopacparser-1.0.jar" target-dir="libs" framework="true" />
+        <lib-file src="libs/android/littleproxy-1.1.2.jar" target-dir="libs" framework="true" />
+        <lib-file src="libs/android/netty-all-4.0.44.Final.jar" target-dir="libs" framework="true" />
+        <lib-file src="libs/android/js-1.0.jar" target-dir="libs" framework="true" />
+        <lib-file src="libs/android/awApteligentBridge-1.0.0.jar" target-dir="libs" framework="true" />
+    </platform>
+
+    <!-- iOS config -->
+
+    <platform name="ios">
+
+        <hook type="before_plugin_install" src="hooks/fixup-awsdk-framework.js" />
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="AirwatchSDK">
+                <param name="ios-package" value="AWSDKPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+            <array>
+                <string>airwatch</string>
+                <string>workspace</string>
+            </array>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLName</key>
+                    <string>com.airwatch.sdk</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>$PACKAGE_NAME.awsdkcallback</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+
+        <header-file src="src/ios/AWSDKPlugin.h"/>
+        <source-file src="src/ios/AWSDKPlugin.m"/>
+
+        <header-file src="src/ios/AWCertificateUtility.h"/>
+        <source-file src="src/ios/AWCertificateUtility.m"/>
+
+        <header-file src="src/ios/AWSDKBridge.h"/>
+        <source-file src="src/ios/AWSDKBridge.m"/>
+        
+        <header-file src="src/ios/AWURLMatcher.h"/>
+        <source-file src="src/ios/AWURLMatcher.m"/>
+        
+        <header-file src="src/ios/NSString+Helper.h"/>
+        <source-file src="src/ios/NSString+Helper.m"/>
+        
+        <header-file src="src/ios/AWDocumentOpenInHandler.h"/>
+        <source-file src="src/ios/AWDocumentOpenInHandler.m"/>
+        
+        <header-file src="src/ios/AWIntegratedAuthProtocol.h"/>
+        <source-file src="src/ios/AWIntegratedAuthProtocol.m"/>
+
+        <framework src="libc++.dylib"/>
+        <framework src="libsqlite3.dylib"/>
+        <framework src="libz.dylib"/>
+        <framework src="Accelerate.framework"/>
+        <framework src="AssetsLibrary.framework"/>
+        <framework src="AudioToolbox.framework"/>
+        <framework src="AVFoundation.framework"/>
+        <framework src="CFNetwork.framework"/>
+        <framework src="CoreData.framework"/>
+        <framework src="CoreFoundation.framework"/>
+        <framework src="CoreGraphics.framework"/>
+        <framework src="CoreLocation.framework"/>
+        <framework src="CoreMedia.framework"/>
+        <framework src="CoreMotion.framework"/>
+        <framework src="CoreTelephony.framework"/>
+        <framework src="CoreText.framework"/>
+        <framework src="CoreVideo.framework"/>
+        <framework src="Foundation.framework"/>
+        <framework src="ImageIO.framework"/>
+        <framework src="LocalAuthentication.framework"/>
+        <framework src="MediaPlayer.framework"/>
+        <framework src="MessageUI.framework"/>
+        <framework src="MobileCoreServices.framework"/>
+        <framework src="QuartzCore.framework"/>
+        <framework src="SafariServices.framework"/>
+        <framework src="Security.framework"/>
+        <framework src="SystemConfiguration.framework"/>
+        <framework src="UIKit.framework"/>
+        <framework src="WebKit.framework"/>
+        <framework src="libxml2.dylib"/>
+
+        <framework src="libs/ios/AWSDK.framework" custom="true"/>
+
+        <resource-file src="libs/ios/SDKLocalization.bundle" />
+        <resource-file src="libs/ios/AWSDK.framework/AWKit.bundle" />
+        <resource-file src="libs/ios/AWSDKDefaults.bundle" />
+
+    </platform>
+    
+</plugin>
